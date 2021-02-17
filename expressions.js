@@ -1,125 +1,105 @@
+let total = 0;
+let holder = "0";
+let saveExpression = "";
+const words = document.querySelector(".words");
 
-function myFunction() {
-    var number = 0;
-    var savenumber = 0;
-    var saveexpression = "";
-    document.getElementById("value").innerHTML = number;
-
-    const equals = document.querySelector('.equals');
-    equals.addEventListener('click', function () {
-    if (saveexpression == "add") {number = number + savenumber}
-    else if (saveexpression == "minus") {number = savenumber - number}
-    else if (saveexpression == "multiply") {number = savenumber * number}
-    else if (saveexpression == "divide") {number = savenumber / number};
-    saveexpression = ""
-    savenumber = 0;
-    document.getElementById("value").innerHTML = number;
-    });
-
-    const add = document.querySelector('.plus');
-    add.addEventListener('click', function () {
-    savenumber = savenumber + number;
-    number = 0;
-    saveexpression = "add"
-    document.getElementById("value").innerHTML = number;
-    });
-
-    const minus = document.querySelector('.minus');
-    minus.addEventListener('click', function () {
-    savenumber = savenumber + number;
-    number = 0;
-    saveexpression = "minus"
-    document.getElementById("value").innerHTML = number;
-    });
-
-    const divide = document.querySelector('.divide');
-    divide.addEventListener('click', function () {
-    savenumber = savenumber + number;
-    number = 0;
-    saveexpression = "divide"
-    document.getElementById("value").innerHTML = number;
-    });
-
-    const multiply = document.querySelector('.multiply');
-    multiply.addEventListener('click', function () {
-    savenumber = savenumber + number;
-    number = 0;
-    saveexpression = "multiply"
-    document.getElementById("value").innerHTML = number;
-    });
-
-    const reset = document.querySelector('.reset');
-    reset.addEventListener('click', function () {
-    number = 0;
-    savenumber = 0;
-    saveexpression = "";
-    document.getElementById("value").innerHTML = number;
-    });
-
-    const backspace = document.querySelector('.backspace');
-    backspace.addEventListener('click', function () {
-    number = Math.floor(number/10);
-    document.getElementById("value").innerHTML = number;
-    });
-
-    const addone = document.querySelector('.one');
-    addone.addEventListener('click', function () {
-    number = number*10 + 1;
-    document.getElementById("value").innerHTML = number;
-    });
-
-    const addtwo = document.querySelector('.two');
-    addtwo.addEventListener('click', function () {
-    number = number*10 + 2;
-    document.getElementById("value").innerHTML = number;
-    });
-
-    const addthree = document.querySelector('.three');
-    addthree.addEventListener('click', function () {
-    number = number*10 + 3;
-    document.getElementById("value").innerHTML = number;
-    });
-
-    const addfour = document.querySelector('.four');
-    addfour.addEventListener('click', function () {
-    number = number*10 + 4;
-    document.getElementById("value").innerHTML = number;
-    });
-
-    const addfive = document.querySelector('.five');
-    addfive.addEventListener('click', function () {
-    number = number*10 + 5;
-    document.getElementById("value").innerHTML = number;
-    });
-
-    const addsix = document.querySelector('.six');
-    addsix.addEventListener('click', function () {
-    number = number*10 + 6;
-    document.getElementById("value").innerHTML = number;
-    });
-
-    const addseven = document.querySelector('.seven');
-    addseven.addEventListener('click', function () {
-    number = number*10 + 7;
-    document.getElementById("value").innerHTML = number;
-    });
-
-    const addeight = document.querySelector('.eight');
-    addeight.addEventListener('click', function () {
-    number = number*10 + 8;
-    document.getElementById("value").innerHTML = number;
-    });
-
-    const addnine = document.querySelector('.nine');
-    addnine.addEventListener('click', function () {
-    number = number*10 + 9;
-    document.getElementById("value").innerHTML = number;
-    });
-
-    const addzero = document.querySelector('.zero');
-    addzero.addEventListener('click', function () {
-    number = number*10;
-    document.getElementById("value").innerHTML = number;
-    });
-
+function buttonClick(input) {
+    if (isNaN(input)) {
+        isExpression(input);
+    } 
+    else {
+        isNumber(input);
+    }
+    if (holder.length >= 11) {
+        words.innerText = holder.substring(0, 11);
+    }
+    else {
+        words.innerText = holder;
+    }
 }
+
+function isNumber(input) {
+    if (holder === "0") {
+        holder = input; 
+    }
+    else {
+        holder += input;
+    }
+}
+
+function doMath(input) {
+    if (holder === "0") {
+        return;
+    }
+    intInput = parseInt(holder);
+    if (total === 0) {
+        total = intInput;
+    }
+    else {
+        calculateAnswer(intInput);
+    }
+    holder = "0";
+    saveExpression = input;
+}
+
+function calculateAnswer(intInput) {    
+    if (saveExpression === "+") {
+        total += intInput;
+    }
+    else if (saveExpression === "-") {
+        total -= intInput;
+    }
+    else if (saveExpression === "x") {
+        total *= intInput;
+    }
+    else {
+        if (intInput === 0) {
+            total = NaN;
+        }
+        else {
+            total /= intInput;
+            }
+        }
+}
+
+function isExpression(input) {
+    switch (input) {
+        case "C":
+            total = 0;
+            holder = "0";
+            saveExpression = "";
+            break;
+        case "←":
+            if (holder.length === 1) {
+                holder = "0";
+            }
+            else {
+                holder = holder.substring(0, holder.length - 1);
+                  }
+            break;
+        case "=":
+            if (saveExpression == null) {
+                return;
+            }
+            else {
+                calculateAnswer(parseInt(holder));
+                holder = total.toString();
+                total = 0;
+                break;
+            }
+        case "+":
+        case "-":
+        case "x":
+        case "÷":
+            doMath(input);
+            break;
+    }
+}
+  
+function init() {
+    document.querySelector(".calculatorbuttons").addEventListener("click", function(event) {
+    buttonClick(event.target.innerText);
+    });
+  }
+  
+init();
