@@ -1,7 +1,21 @@
 @font-face {
     font-family: DefaultFont;
-    src: url(DefaultFont.otf);
+    src: url(Fonts/DefaultFont.otf);
   }
+ h2 {
+     font-size: 50px;
+     font-family: DefaultFont;
+     text-align: center;
+     margin-bottom: 0px;
+ }
+
+ h3 {
+     margin-top: 5px;
+     text-align: center;
+     padding-right: 250px;
+     margin-bottom: 30px;
+     font-family: DefaultFont;
+ }
 
 
 .background {
@@ -11,6 +25,7 @@
     padding: 10px;
     text-align: center;
     border-radius: 30px;
+    margin: auto;
 }
 
 .button-group {
@@ -21,20 +36,21 @@
     cursor: pointer;
     border: 2px solid black;
     height: 100px;
-    font-family: myFirstFont;
+    font-family: DefaultFont;
     font-size: 50px;
     border-radius: 100px;
     outline: none;
-    transition: .5s;
+    transition: .4s;
 }
 
 .calculations {
     height: 80px;
     text-align: right;
     padding-right: 20px;
+    padding-left: 20px;
     padding-top: 0px;
     color: white;
-    font-family: myFirstFont;
+    font-family: DefaultFont;
     font-size: 35px;
 }
 

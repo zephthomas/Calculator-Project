@@ -28,9 +28,6 @@ function isNumber(input) {
 }
 
 function doMath(input) {
-    if (holder === "0") {
-        return;
-    }
     intInput = parseInt(holder);
     if (total === 0) {
         total = intInput;
